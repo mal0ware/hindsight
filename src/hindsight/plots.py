@@ -94,9 +94,17 @@ def _sharpe_bars(
     ax.set_xlim(0.0, max(float(indexed["sharpe_ci_high"].max()) * 1.12, 1.0))
     ax.grid(axis="y", visible=False)
     ax.spines["left"].set_visible(False)
-    ax.set_xlabel("Annualised Sharpe ratio, before costs (line: 95% block-bootstrap interval)")
-    ax.set_title(title)
-    fig.subplots_adjust(left=0.40, right=0.96, top=0.86, bottom=0.2)
+    ax.set_xlabel("Annualised Sharpe ratio, before costs")
+    fig.suptitle(title, x=0.02, ha="left", fontsize=11, fontweight="bold")
+    fig.text(
+        0.02,
+        0.02,
+        "Black line: 95% interval from a block bootstrap of daily returns.",
+        ha="left",
+        color=INK_2,
+        fontsize=8.5,
+    )
+    fig.subplots_adjust(left=0.36, right=0.96, top=0.88, bottom=0.24)
     _save(fig, path)
 
 
@@ -170,7 +178,7 @@ def probability_zoom(tables: ex.ThreeWayTables, start: str, end: str, path: Path
     axes[1].axhline(0.5, color=AXIS, linewidth=1.0)
     axes[1].set_ylim(-0.03, 1.03)
     axes[1].set_ylabel("Probability the day is calm")
-    axes[1].legend(loc="lower left", ncols=2)
+    axes[1].legend(loc="lower left", bbox_to_anchor=(0.0, 1.0), ncols=2, borderaxespad=0.2)
     fig.tight_layout()
     _save(fig, path)
 
