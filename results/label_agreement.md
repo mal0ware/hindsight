@@ -1,0 +1,8 @@
+| labels | calm_days_pct | same_as_hmm_smoothed_pct |
+| --- | --- | --- |
+| HMM, smoothed labels | 79.79 | 100.00 |
+| HMM, filtered labels, full-sample parameters | 80.42 | 92.83 |
+| HMM, filtered labels, past-only parameters | 80.77 | 92.66 |
+| WK-means, labels from all windows containing the day | 79.33 | 92.94 |
+| WK-means, trailing window, full-sample centroids | 79.18 | 88.28 |
+| WK-means, trailing window, past-only centroids | 82.02 | 88.21 |

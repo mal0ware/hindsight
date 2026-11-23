@@ -1,0 +1,10 @@
+| item | value |
+| --- | --- |
+| first day in sample | 1926-07-01 |
+| last day in sample | 2026-09-30 |
+| days in sample | 26338 |
+| first refit day | 1936-07-31 |
+| refits | 1082 |
+| first day evaluated | 1936-08-01 |
+| days evaluated | 23337 |
+| sha256 of the data file | 96c23b88e651cbfff3740a53f8225e59ee39893371e96385a1d8125ec2cd9c89 |
