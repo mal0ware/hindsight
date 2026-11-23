@@ -1,0 +1,4 @@
+| state | paper_quarters | here_quarters | from_paper_estimate |
+| --- | --- | --- | --- |
+| recession (state 0) | 4.1000 | 4.0762 | 4.0816 |
+| expansion (state 1) | 10.5000 | 10.4259 | 10.5152 |

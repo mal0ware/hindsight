@@ -1,0 +1,9 @@
+| paper_first_quarter | paper_last_quarter | here_first_quarter | here_last_quarter | match |
+| --- | --- | --- | --- | --- |
+| 1953Q3 | 1954Q2 | 1953Q3 | 1954Q2 | True |
+| 1957Q1 | 1958Q1 | 1957Q1 | 1958Q1 | True |
+| 1960Q2 | 1960Q4 | 1960Q2 | 1960Q4 | True |
+| 1969Q3 | 1970Q4 | 1969Q3 | 1970Q4 | True |
+| 1974Q1 | 1975Q1 | 1974Q1 | 1975Q1 | True |
+| 1979Q2 | 1980Q3 | 1979Q2 | 1980Q3 | True |
+| 1981Q2 | 1982Q4 | 1981Q2 | 1982Q4 | True |
