@@ -85,7 +85,7 @@ class Hamilton1989Fit:
 
 def load_gnp() -> tuple[list[str], FloatArray]:
     """Quarter labels and percent growth of US real GNP, 1951Q2 to 1984Q4."""
-    text = resources.files("hindsight").joinpath("data/rgnp_growth.csv").read_text("utf-8")
+    text = resources.files("hindsight").joinpath("rgnp_growth.csv").read_text("utf-8")
     quarters: list[str] = []
     values: list[float] = []
     for line in text.splitlines():
