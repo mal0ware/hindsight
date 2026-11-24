@@ -14,6 +14,7 @@ Here that is done by handing the expanded chain to the general filter in
 
 from __future__ import annotations
 
+import ast
 from dataclasses import dataclass
 from importlib import resources
 
@@ -83,17 +84,34 @@ class Hamilton1989Fit:
     converged: bool
 
 
+#: Where the GNP series is read from: a module inside the statsmodels package.
+GNP_SOURCE = ("statsmodels.tsa.regime_switching.tests", "test_markov_autoregression.py")
+
+
 def load_gnp() -> tuple[list[str], FloatArray]:
-    """Quarter labels and percent growth of US real GNP, 1951Q2 to 1984Q4."""
-    text = resources.files("hindsight").joinpath("rgnp_growth.csv").read_text("utf-8")
-    quarters: list[str] = []
-    values: list[float] = []
-    for line in text.splitlines():
-        if line.startswith("#") or line.startswith("quarter") or not line.strip():
-            continue
-        quarter, value = line.split(",")
-        quarters.append(quarter)
-        values.append(float(value))
+    """Quarter labels and percent growth of US real GNP, 1951Q2 to 1984Q4.
+
+    This repository does not ship the series. The 135 growth rates (100 times
+    the change in log real GNP) are written out as the list ``rgnp`` in the
+    test module of statsmodels, which is a pinned dependency and is
+    distributed under the BSD 3-clause licence. The list is read from the
+    source text of that module without importing it.
+    """
+    package, filename = GNP_SOURCE
+    text = resources.files(package).joinpath(filename).read_text("utf-8")
+    values: list[float] | None = None
+    for node in ast.parse(text).body:
+        if (
+            isinstance(node, ast.Assign)
+            and len(node.targets) == 1
+            and isinstance(node.targets[0], ast.Name)
+            and node.targets[0].id == "rgnp"
+        ):
+            values = [float(v) for v in ast.literal_eval(node.value)]
+            break
+    if values is None or len(values) != 135:
+        raise RuntimeError("the GNP series was not found in the installed statsmodels")
+    quarters = [f"{1951 + (i + 1) // 4}Q{(i + 1) % 4 + 1}" for i in range(len(values))]
     return quarters, np.array(values)
 
 
