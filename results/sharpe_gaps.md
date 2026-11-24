@@ -1,9 +1,15 @@
-| gap | sharpe_difference | ci_low | ci_high | share_of_resamples_at_or_below_zero |
-| --- | --- | --- | --- | --- |
-| HMM: total look-ahead (smoothed minus past-only) | 0.7110 | 0.5808 | 0.8426 | 0.0000 |
-| HMM: from the smoother (smoothed minus filtered) | 0.6764 | 0.5393 | 0.8068 | 0.0000 |
-| HMM: from the parameters (full-sample minus past-only) | 0.0346 | -0.0154 | 0.0877 | 0.0845 |
-| HMM: same-day trading on top of smoothing | 0.3592 | 0.2818 | 0.4371 | 0.0000 |
-| WK-means: total look-ahead (all windows minus past-only) | 0.6578 | 0.4943 | 0.8228 | 0.0000 |
-| WK-means: from windows that run ahead | 0.7032 | 0.5381 | 0.8673 | 0.0000 |
-| WK-means: from the centroids | -0.0454 | -0.1098 | 0.0163 | 0.9130 |
+| gap | execution | sharpe_difference | ci_low | ci_high | share_of_resamples_at_or_below_zero |
+| --- | --- | --- | --- | --- | --- |
+| HMM: total look-ahead (smoothed minus past-only) | same close | 0.7110 | 0.5808 | 0.8426 | 0.0000 |
+| HMM: from the smoother (smoothed minus filtered) | same close | 0.6764 | 0.5393 | 0.8068 | 0.0000 |
+| HMM: from the parameters (full-sample minus past-only) | same close | 0.0346 | -0.0154 | 0.0877 | 0.0845 |
+| HMM: same-day trading on top of smoothing | same close | 0.3592 | 0.2818 | 0.4371 | 0.0000 |
+| WK-means: total look-ahead (all windows minus past-only) | same close | 0.6578 | 0.4943 | 0.8228 | 0.0000 |
+| WK-means: from windows that run ahead | same close | 0.7032 | 0.5381 | 0.8673 | 0.0000 |
+| WK-means: from the centroids | same close | -0.0454 | -0.1098 | 0.0163 | 0.9130 |
+| HMM: total look-ahead (smoothed minus past-only) | one day later | 0.5036 | 0.3847 | 0.6210 | 0.0000 |
+| HMM: from the smoother (smoothed minus filtered) | one day later | 0.4728 | 0.3553 | 0.5815 | 0.0000 |
+| HMM: from the parameters (full-sample minus past-only) | one day later | 0.0307 | -0.0153 | 0.0808 | 0.0875 |
+| WK-means: total look-ahead (all windows minus past-only) | one day later | 0.6329 | 0.4651 | 0.7996 | 0.0000 |
+| WK-means: from windows that run ahead | one day later | 0.6960 | 0.5309 | 0.8614 | 0.0000 |
+| WK-means: from the centroids | one day later | -0.0630 | -0.1358 | 0.0052 | 0.9670 |

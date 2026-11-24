@@ -1,0 +1,15 @@
+| quantity | point_estimate | bootstrap_mean | ci_low | ci_high | share_of_resamples_at_or_below_zero | resamples | em_fits_per_resample |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| sharpe_buy_and_hold | 0.5103 | 0.4544 | 0.2119 | 0.6960 | 0.0000 | 500 | 91 |
+| sharpe_smoothed | 1.2375 | 1.2960 | 0.9977 | 1.5957 | 0.0000 | 500 | 91 |
+| sharpe_filtered_full | 0.5600 | 0.5531 | 0.3120 | 0.8001 | 0.0000 | 500 | 91 |
+| sharpe_filtered_past | 0.5132 | 0.5508 | 0.3059 | 0.8153 | 0.0000 | 500 | 91 |
+| gap_total | 0.7244 | 0.7452 | 0.5682 | 0.9420 | 0.0000 | 500 | 91 |
+| gap_smoother | 0.6776 | 0.7428 | 0.5709 | 0.9279 | 0.0000 | 500 | 91 |
+| gap_parameters | 0.0468 | 0.0023 | -0.0481 | 0.0554 | 0.4600 | 500 | 91 |
+| sharpe_smoothed_one_day_later | 1.0189 | 1.0319 | 0.7654 | 1.2639 | 0.0000 | 500 | 91 |
+| sharpe_filtered_full_one_day_later | 0.5446 | 0.5516 | 0.3014 | 0.8083 | 0.0000 | 500 | 91 |
+| sharpe_filtered_past_one_day_later | 0.5178 | 0.5470 | 0.2764 | 0.8074 | 0.0000 | 500 | 91 |
+| gap_total_one_day_later | 0.5011 | 0.4848 | 0.3630 | 0.6099 | 0.0000 | 500 | 91 |
+| gap_smoother_one_day_later | 0.4742 | 0.4803 | 0.3643 | 0.6128 | 0.0000 | 500 | 91 |
+| gap_parameters_one_day_later | 0.0268 | 0.0046 | -0.0439 | 0.0576 | 0.4380 | 500 | 91 |

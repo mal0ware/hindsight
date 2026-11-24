@@ -1,0 +1,8 @@
+| rule | execution | series | gap_smoother_median | gap_smoother_min | gap_smoother_max | gap_parameters_median | gap_parameters_min | gap_parameters_max | gap_total_median | gap_total_min | gap_total_max | series_with_smoother_gap_above_zero | series_with_parameter_gap_above_zero | past_only_minus_buy_and_hold_median | series_where_past_only_beats_buy_and_hold |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 states: hold when the calm state is more likely than not | same close | 21 | 0.6383 | 0.2742 | 0.8875 | 0.0097 | -0.0360 | 0.0756 | 0.6638 | 0.3120 | 0.8975 | 21 | 12 | -0.0132 | 7 |
+| 3 states: hold unless the most volatile state is more likely than not | same close | 21 | 0.2432 | 0.0377 | 0.3529 | -0.0016 | -0.0375 | 0.0860 | 0.2621 | 0.0564 | 0.3504 | 21 | 10 | 0.0158 | 18 |
+| 3 states: hold only when the least volatile state is more likely than not | same close | 21 | 1.2417 | 0.1006 | 1.5896 | -0.0121 | -0.0553 | 0.2651 | 1.2294 | 0.0885 | 1.5692 | 21 | 8 | 0.0651 | 14 |
+| 2 states: hold when the calm state is more likely than not | one day later | 21 | 0.4095 | 0.1420 | 0.6281 | 0.0195 | -0.0442 | 0.1063 | 0.4432 | 0.1753 | 0.6347 | 21 | 15 | -0.0183 | 8 |
+| 3 states: hold unless the most volatile state is more likely than not | one day later | 21 | 0.1950 | 0.0189 | 0.2672 | 0.0044 | -0.0495 | 0.0577 | 0.1926 | 0.0391 | 0.2788 | 21 | 12 | 0.0051 | 12 |
+| 3 states: hold only when the least volatile state is more likely than not | one day later | 21 | 0.9818 | -0.0725 | 1.3029 | 0.0146 | -0.1636 | 0.2585 | 1.0079 | -0.0567 | 1.3176 | 20 | 11 | -0.0396 | 8 |

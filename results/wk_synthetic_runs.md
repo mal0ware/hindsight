@@ -3,150 +3,400 @@
 | 0 | WK-means | 0.9413 | 0.9113 | 0.9513 |
 | 0 | HMM, smoothed | 0.9950 | 0.9890 | 0.9969 |
 | 0 | HMM, filtered | 0.9787 | 0.9579 | 0.9856 |
+| 0 | HMM, usual start, stopped after 10 iterations | 0.3459 | 0.9980 | 0.1285 |
+| 0 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 0 | HMM, 2-means start, 10 iterations at most | 0.5546 | 0.4506 | 0.5893 |
+| 0 | HMM, 2-means start with inflated variance, run to convergence | 0.9950 | 0.9890 | 0.9969 |
+| 0 | HMM fitted to the log price instead of returns | 0.4558 | 0.6254 | 0.3992 |
 | 1 | WK-means | 0.9549 | 0.9174 | 0.9674 |
 | 1 | HMM, smoothed | 0.9944 | 0.9865 | 0.9971 |
 | 1 | HMM, filtered | 0.9811 | 0.9655 | 0.9863 |
+| 1 | HMM, usual start, stopped after 10 iterations | 0.3290 | 0.9990 | 0.1057 |
+| 1 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.9944 | 0.9866 | 0.9971 |
+| 1 | HMM, 2-means start, 10 iterations at most | 0.7593 | 0.0785 | 0.9862 |
+| 1 | HMM, 2-means start with inflated variance, run to convergence | 0.9944 | 0.9865 | 0.9971 |
+| 1 | HMM fitted to the log price instead of returns | 0.3034 | 0.5584 | 0.2184 |
 | 2 | WK-means | 0.9495 | 0.9154 | 0.9609 |
 | 2 | HMM, smoothed | 0.9961 | 0.9934 | 0.9969 |
 | 2 | HMM, filtered | 0.9797 | 0.9642 | 0.9848 |
+| 2 | HMM, usual start, stopped after 10 iterations | 0.2970 | 0.9995 | 0.0628 |
+| 2 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 2 | HMM, 2-means start, 10 iterations at most | 0.4273 | 0.5934 | 0.3720 |
+| 2 | HMM, 2-means start with inflated variance, run to convergence | 0.9961 | 0.9934 | 0.9969 |
+| 2 | HMM fitted to the log price instead of returns | 0.4521 | 0.6320 | 0.3922 |
 | 3 | WK-means | 0.9530 | 0.9028 | 0.9697 |
 | 3 | HMM, smoothed | 0.9951 | 0.9875 | 0.9976 |
 | 3 | HMM, filtered | 0.9821 | 0.9644 | 0.9879 |
+| 3 | HMM, usual start, stopped after 10 iterations | 0.3607 | 0.9955 | 0.1491 |
+| 3 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.8307 | 0.6096 | 0.9043 |
+| 3 | HMM, 2-means start, 10 iterations at most | 0.6323 | 0.3528 | 0.7254 |
+| 3 | HMM, 2-means start with inflated variance, run to convergence | 0.9958 | 0.9875 | 0.9985 |
+| 3 | HMM fitted to the log price instead of returns | 0.5304 | 0.3548 | 0.5889 |
 | 4 | WK-means | 0.7003 | 0.7527 | 0.6828 |
 | 4 | HMM, smoothed | 0.9939 | 0.9846 | 0.9971 |
 | 4 | HMM, filtered | 0.9781 | 0.9552 | 0.9858 |
+| 4 | HMM, usual start, stopped after 10 iterations | 0.3180 | 0.9994 | 0.0909 |
+| 4 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.4957 | 0.5035 | 0.4930 |
+| 4 | HMM, 2-means start, 10 iterations at most | 0.5380 | 0.4524 | 0.5666 |
+| 4 | HMM, 2-means start with inflated variance, run to convergence | 0.9939 | 0.9846 | 0.9971 |
+| 4 | HMM fitted to the log price instead of returns | 0.4259 | 0.7603 | 0.3144 |
 | 5 | WK-means | 0.6805 | 0.7868 | 0.6450 |
 | 5 | HMM, smoothed | 0.9948 | 0.9900 | 0.9963 |
 | 5 | HMM, filtered | 0.9765 | 0.9482 | 0.9859 |
+| 5 | HMM, usual start, stopped after 10 iterations | 0.3146 | 0.9992 | 0.0864 |
+| 5 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2473 | 0.9880 | 0.0003 |
+| 5 | HMM, 2-means start, 10 iterations at most | 0.3457 | 0.7023 | 0.2269 |
+| 5 | HMM, 2-means start with inflated variance, run to convergence | 0.9948 | 0.9900 | 0.9963 |
+| 5 | HMM fitted to the log price instead of returns | 0.5525 | 0.6541 | 0.5186 |
 | 6 | WK-means | 0.9556 | 0.9188 | 0.9679 |
 | 6 | HMM, smoothed | 0.9954 | 0.9855 | 0.9986 |
 | 6 | HMM, filtered | 0.9810 | 0.9561 | 0.9892 |
+| 6 | HMM, usual start, stopped after 10 iterations | 0.3253 | 0.9977 | 0.1012 |
+| 6 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7503 | 0.0014 | 0.9999 |
+| 6 | HMM, 2-means start, 10 iterations at most | 0.7736 | 0.1000 | 0.9981 |
+| 6 | HMM, 2-means start with inflated variance, run to convergence | 0.9954 | 0.9855 | 0.9986 |
+| 6 | HMM fitted to the log price instead of returns | 0.5368 | 0.7888 | 0.4528 |
 | 7 | WK-means | 0.9436 | 0.8765 | 0.9659 |
 | 7 | HMM, smoothed | 0.9937 | 0.9855 | 0.9964 |
 | 7 | HMM, filtered | 0.9785 | 0.9529 | 0.9870 |
+| 7 | HMM, usual start, stopped after 10 iterations | 0.3071 | 0.9985 | 0.0766 |
+| 7 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 7 | HMM, 2-means start, 10 iterations at most | 0.9926 | 0.9812 | 0.9964 |
+| 7 | HMM, 2-means start with inflated variance, run to convergence | 0.9937 | 0.9855 | 0.9964 |
+| 7 | HMM fitted to the log price instead of returns | 0.5324 | 0.2844 | 0.6151 |
 | 8 | WK-means | 0.9518 | 0.8902 | 0.9724 |
 | 8 | HMM, smoothed | 0.9946 | 0.9922 | 0.9954 |
 | 8 | HMM, filtered | 0.9774 | 0.9578 | 0.9839 |
+| 8 | HMM, usual start, stopped after 10 iterations | 0.3276 | 0.9973 | 0.1043 |
+| 8 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 8 | HMM, 2-means start, 10 iterations at most | 0.7192 | 0.1885 | 0.8961 |
+| 8 | HMM, 2-means start with inflated variance, run to convergence | 0.9946 | 0.9922 | 0.9954 |
+| 8 | HMM fitted to the log price instead of returns | 0.4435 | 0.7677 | 0.3355 |
 | 9 | WK-means | 0.9500 | 0.9037 | 0.9655 |
 | 9 | HMM, smoothed | 0.9946 | 0.9856 | 0.9976 |
 | 9 | HMM, filtered | 0.9839 | 0.9685 | 0.9891 |
+| 9 | HMM, usual start, stopped after 10 iterations | 0.4046 | 0.9961 | 0.2074 |
+| 9 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 9 | HMM, 2-means start, 10 iterations at most | 0.9945 | 0.9855 | 0.9975 |
+| 9 | HMM, 2-means start with inflated variance, run to convergence | 0.9946 | 0.9856 | 0.9976 |
+| 9 | HMM fitted to the log price instead of returns | 0.3534 | 0.5409 | 0.2909 |
 | 10 | WK-means | 0.9472 | 0.9055 | 0.9611 |
 | 10 | HMM, smoothed | 0.9944 | 0.9929 | 0.9949 |
 | 10 | HMM, filtered | 0.9798 | 0.9628 | 0.9855 |
+| 10 | HMM, usual start, stopped after 10 iterations | 0.3453 | 0.9981 | 0.1277 |
+| 10 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 10 | HMM, 2-means start, 10 iterations at most | 0.3639 | 0.6713 | 0.2615 |
+| 10 | HMM, 2-means start with inflated variance, run to convergence | 0.9944 | 0.9929 | 0.9949 |
+| 10 | HMM fitted to the log price instead of returns | 0.5588 | 0.6308 | 0.5348 |
 | 11 | WK-means | 0.9481 | 0.9291 | 0.9544 |
 | 11 | HMM, smoothed | 0.9963 | 0.9954 | 0.9966 |
 | 11 | HMM, filtered | 0.9781 | 0.9551 | 0.9858 |
+| 11 | HMM, usual start, stopped after 10 iterations | 0.3085 | 1.0000 | 0.0780 |
+| 11 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 11 | HMM, 2-means start, 10 iterations at most | 0.7557 | 0.0315 | 0.9971 |
+| 11 | HMM, 2-means start with inflated variance, run to convergence | 0.9963 | 0.9954 | 0.9966 |
+| 11 | HMM fitted to the log price instead of returns | 0.5782 | 0.4957 | 0.6057 |
 | 12 | WK-means | 0.9335 | 0.8739 | 0.9534 |
 | 12 | HMM, smoothed | 0.9952 | 0.9929 | 0.9960 |
 | 12 | HMM, filtered | 0.9763 | 0.9651 | 0.9801 |
+| 12 | HMM, usual start, stopped after 10 iterations | 0.3288 | 0.9988 | 0.1055 |
+| 12 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 12 | HMM, 2-means start, 10 iterations at most | 0.7647 | 0.0850 | 0.9912 |
+| 12 | HMM, 2-means start with inflated variance, run to convergence | 0.9952 | 0.9929 | 0.9960 |
+| 12 | HMM fitted to the log price instead of returns | 0.3875 | 0.5984 | 0.3172 |
 | 13 | WK-means | 0.9543 | 0.9219 | 0.9652 |
 | 13 | HMM, smoothed | 0.9972 | 0.9925 | 0.9988 |
 | 13 | HMM, filtered | 0.9857 | 0.9754 | 0.9891 |
+| 13 | HMM, usual start, stopped after 10 iterations | 0.3454 | 0.9992 | 0.1274 |
+| 13 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.9972 | 0.9925 | 0.9988 |
+| 13 | HMM, 2-means start, 10 iterations at most | 0.3980 | 0.6312 | 0.3203 |
+| 13 | HMM, 2-means start with inflated variance, run to convergence | 0.9972 | 0.9925 | 0.9988 |
+| 13 | HMM fitted to the log price instead of returns | 0.3993 | 0.6083 | 0.3296 |
 | 14 | WK-means | 0.9409 | 0.8715 | 0.9640 |
 | 14 | HMM, smoothed | 0.9952 | 0.9913 | 0.9965 |
 | 14 | HMM, filtered | 0.9806 | 0.9619 | 0.9869 |
+| 14 | HMM, usual start, stopped after 10 iterations | 0.3063 | 1.0000 | 0.0751 |
+| 14 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 14 | HMM, 2-means start, 10 iterations at most | 0.6845 | 0.2741 | 0.8213 |
+| 14 | HMM, 2-means start with inflated variance, run to convergence | 0.9952 | 0.9913 | 0.9965 |
+| 14 | HMM fitted to the log price instead of returns | 0.4857 | 0.4328 | 0.5033 |
 | 15 | WK-means | 0.9479 | 0.8736 | 0.9727 |
 | 15 | HMM, smoothed | 0.9956 | 0.9866 | 0.9986 |
 | 15 | HMM, filtered | 0.9779 | 0.9442 | 0.9892 |
+| 15 | HMM, usual start, stopped after 10 iterations | 0.3253 | 0.9954 | 0.1020 |
+| 15 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2579 | 0.8413 | 0.0634 |
+| 15 | HMM, 2-means start, 10 iterations at most | 0.7533 | 0.0891 | 0.9746 |
+| 15 | HMM, 2-means start with inflated variance, run to convergence | 0.9956 | 0.9866 | 0.9986 |
+| 15 | HMM fitted to the log price instead of returns | 0.6000 | 0.6676 | 0.5774 |
 | 16 | WK-means | 0.6304 | 0.7010 | 0.6068 |
 | 16 | HMM, smoothed | 0.9965 | 0.9956 | 0.9968 |
 | 16 | HMM, filtered | 0.9787 | 0.9610 | 0.9846 |
+| 16 | HMM, usual start, stopped after 10 iterations | 0.3283 | 0.9977 | 0.1052 |
+| 16 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 16 | HMM, 2-means start, 10 iterations at most | 0.7550 | 0.0261 | 0.9980 |
+| 16 | HMM, 2-means start with inflated variance, run to convergence | 0.9965 | 0.9956 | 0.9968 |
+| 16 | HMM fitted to the log price instead of returns | 0.3940 | 0.5839 | 0.3307 |
 | 17 | WK-means | 0.5224 | 0.5484 | 0.5138 |
 | 17 | HMM, smoothed | 0.9937 | 0.9873 | 0.9959 |
 | 17 | HMM, filtered | 0.9831 | 0.9677 | 0.9882 |
+| 17 | HMM, usual start, stopped after 10 iterations | 0.3370 | 0.9967 | 0.1171 |
+| 17 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 17 | HMM, 2-means start, 10 iterations at most | 0.7444 | 0.1325 | 0.9483 |
+| 17 | HMM, 2-means start with inflated variance, run to convergence | 0.9941 | 0.9873 | 0.9963 |
+| 17 | HMM fitted to the log price instead of returns | 0.5588 | 0.6000 | 0.5451 |
 | 18 | WK-means | 0.9494 | 0.8953 | 0.9674 |
 | 18 | HMM, smoothed | 0.9970 | 0.9949 | 0.9977 |
 | 18 | HMM, filtered | 0.9793 | 0.9562 | 0.9870 |
+| 18 | HMM, usual start, stopped after 10 iterations | 0.3352 | 0.9971 | 0.1146 |
+| 18 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2417 | 0.9539 | 0.0043 |
+| 18 | HMM, 2-means start, 10 iterations at most | 0.7162 | 0.1949 | 0.8899 |
+| 18 | HMM, 2-means start with inflated variance, run to convergence | 0.9970 | 0.9949 | 0.9977 |
+| 18 | HMM fitted to the log price instead of returns | 0.4694 | 0.6111 | 0.4221 |
 | 19 | WK-means | 0.9544 | 0.9028 | 0.9715 |
 | 19 | HMM, smoothed | 0.9947 | 0.9837 | 0.9984 |
 | 19 | HMM, filtered | 0.9816 | 0.9629 | 0.9878 |
+| 19 | HMM, usual start, stopped after 10 iterations | 0.3276 | 0.9983 | 0.1041 |
+| 19 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7536 | 0.0177 | 0.9989 |
+| 19 | HMM, 2-means start, 10 iterations at most | 0.5309 | 0.4650 | 0.5529 |
+| 19 | HMM, 2-means start with inflated variance, run to convergence | 0.9947 | 0.9837 | 0.9984 |
+| 19 | HMM fitted to the log price instead of returns | 0.4543 | 0.7777 | 0.3465 |
 | 20 | WK-means | 0.9468 | 0.8561 | 0.9771 |
 | 20 | HMM, smoothed | 0.9957 | 0.9908 | 0.9974 |
 | 20 | HMM, filtered | 0.9808 | 0.9607 | 0.9875 |
+| 20 | HMM, usual start, stopped after 10 iterations | 0.3754 | 0.9994 | 0.1674 |
+| 20 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0002 | 1.0000 |
+| 20 | HMM, 2-means start, 10 iterations at most | 0.7091 | 0.2230 | 0.8711 |
+| 20 | HMM, 2-means start with inflated variance, run to convergence | 0.9957 | 0.9908 | 0.9974 |
+| 20 | HMM fitted to the log price instead of returns | 0.4513 | 0.8000 | 0.3351 |
 | 21 | WK-means | 0.9449 | 0.8819 | 0.9659 |
 | 21 | HMM, smoothed | 0.9946 | 0.9866 | 0.9972 |
 | 21 | HMM, filtered | 0.9791 | 0.9527 | 0.9878 |
+| 21 | HMM, usual start, stopped after 10 iterations | 0.3271 | 0.9983 | 0.1034 |
+| 21 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.6268 | 0.3520 | 0.7184 |
+| 21 | HMM, 2-means start, 10 iterations at most | 0.9243 | 0.7094 | 0.9959 |
+| 21 | HMM, 2-means start with inflated variance, run to convergence | 0.9946 | 0.9866 | 0.9972 |
+| 21 | HMM fitted to the log price instead of returns | 0.4910 | 0.7133 | 0.4170 |
 | 22 | WK-means | 0.9473 | 0.9098 | 0.9598 |
 | 22 | HMM, smoothed | 0.9946 | 0.9812 | 0.9991 |
 | 22 | HMM, filtered | 0.9785 | 0.9426 | 0.9905 |
+| 22 | HMM, usual start, stopped after 10 iterations | 0.3429 | 0.9973 | 0.1248 |
+| 22 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0002 | 0.9999 |
+| 22 | HMM, 2-means start, 10 iterations at most | 0.7536 | 0.0149 | 0.9998 |
+| 22 | HMM, 2-means start with inflated variance, run to convergence | 0.9946 | 0.9812 | 0.9991 |
+| 22 | HMM fitted to the log price instead of returns | 0.6314 | 0.5719 | 0.6512 |
 | 23 | WK-means | 0.9401 | 0.8927 | 0.9560 |
 | 23 | HMM, smoothed | 0.9936 | 0.9927 | 0.9938 |
 | 23 | HMM, filtered | 0.9781 | 0.9590 | 0.9845 |
+| 23 | HMM, usual start, stopped after 10 iterations | 0.3488 | 0.9965 | 0.1328 |
+| 23 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2760 | 0.8363 | 0.0893 |
+| 23 | HMM, 2-means start, 10 iterations at most | 0.9277 | 0.9249 | 0.9286 |
+| 23 | HMM, 2-means start with inflated variance, run to convergence | 0.9936 | 0.9927 | 0.9938 |
+| 23 | HMM fitted to the log price instead of returns | 0.4723 | 0.5990 | 0.4301 |
 | 24 | WK-means | 0.9272 | 0.9076 | 0.9337 |
 | 24 | HMM, smoothed | 0.9954 | 0.9871 | 0.9981 |
 | 24 | HMM, filtered | 0.9831 | 0.9636 | 0.9896 |
+| 24 | HMM, usual start, stopped after 10 iterations | 0.3029 | 1.0000 | 0.0705 |
+| 24 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2501 | 1.0000 | 0.0002 |
+| 24 | HMM, 2-means start, 10 iterations at most | 0.5823 | 0.3988 | 0.6435 |
+| 24 | HMM, 2-means start with inflated variance, run to convergence | 0.9954 | 0.9871 | 0.9981 |
+| 24 | HMM fitted to the log price instead of returns | 0.4870 | 0.6420 | 0.4354 |
 | 25 | WK-means | 0.9529 | 0.8904 | 0.9737 |
 | 25 | HMM, smoothed | 0.9931 | 0.9779 | 0.9981 |
 | 25 | HMM, filtered | 0.9764 | 0.9498 | 0.9853 |
+| 25 | HMM, usual start, stopped after 10 iterations | 0.3158 | 0.9993 | 0.0880 |
+| 25 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 25 | HMM, 2-means start, 10 iterations at most | 0.7194 | 0.1932 | 0.8947 |
+| 25 | HMM, 2-means start with inflated variance, run to convergence | 0.9931 | 0.9779 | 0.9981 |
+| 25 | HMM fitted to the log price instead of returns | 0.4461 | 0.6910 | 0.3645 |
 | 26 | WK-means | 0.9352 | 0.8424 | 0.9662 |
 | 26 | HMM, smoothed | 0.9968 | 0.9967 | 0.9968 |
 | 26 | HMM, filtered | 0.9795 | 0.9584 | 0.9865 |
+| 26 | HMM, usual start, stopped after 10 iterations | 0.3361 | 0.9969 | 0.1159 |
+| 26 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.9813 | 0.9991 | 0.9754 |
+| 26 | HMM, 2-means start, 10 iterations at most | 0.3894 | 0.7588 | 0.2663 |
+| 26 | HMM, 2-means start with inflated variance, run to convergence | 0.9968 | 0.9967 | 0.9968 |
+| 26 | HMM fitted to the log price instead of returns | 0.5030 | 0.8305 | 0.3939 |
 | 27 | WK-means | 0.9286 | 0.8510 | 0.9545 |
 | 27 | HMM, smoothed | 0.9928 | 0.9895 | 0.9939 |
 | 27 | HMM, filtered | 0.9768 | 0.9569 | 0.9834 |
+| 27 | HMM, usual start, stopped after 10 iterations | 0.3453 | 0.9993 | 0.1273 |
+| 27 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 27 | HMM, 2-means start, 10 iterations at most | 0.5805 | 0.4014 | 0.6402 |
+| 27 | HMM, 2-means start with inflated variance, run to convergence | 0.9928 | 0.9895 | 0.9939 |
+| 27 | HMM fitted to the log price instead of returns | 0.4872 | 0.7787 | 0.3900 |
 | 28 | WK-means | 0.9498 | 0.8998 | 0.9666 |
 | 28 | HMM, smoothed | 0.9929 | 0.9844 | 0.9957 |
 | 28 | HMM, filtered | 0.9797 | 0.9599 | 0.9864 |
+| 28 | HMM, usual start, stopped after 10 iterations | 0.4091 | 0.9964 | 0.2134 |
+| 28 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 28 | HMM, 2-means start, 10 iterations at most | 0.7537 | 0.0164 | 0.9995 |
+| 28 | HMM, 2-means start with inflated variance, run to convergence | 0.9929 | 0.9844 | 0.9957 |
+| 28 | HMM fitted to the log price instead of returns | 0.4687 | 0.4752 | 0.4665 |
 | 29 | WK-means | 0.9486 | 0.9080 | 0.9622 |
 | 29 | HMM, smoothed | 0.9954 | 0.9940 | 0.9959 |
 | 29 | HMM, filtered | 0.9836 | 0.9681 | 0.9887 |
+| 29 | HMM, usual start, stopped after 10 iterations | 0.3098 | 0.9986 | 0.0802 |
+| 29 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 29 | HMM, 2-means start, 10 iterations at most | 0.5772 | 0.4197 | 0.6296 |
+| 29 | HMM, 2-means start with inflated variance, run to convergence | 0.9954 | 0.9940 | 0.9959 |
+| 29 | HMM fitted to the log price instead of returns | 0.5587 | 0.7000 | 0.5116 |
 | 30 | WK-means | 0.9240 | 0.8941 | 0.9339 |
 | 30 | HMM, smoothed | 0.9943 | 0.9930 | 0.9947 |
 | 30 | HMM, filtered | 0.9812 | 0.9659 | 0.9863 |
+| 30 | HMM, usual start, stopped after 10 iterations | 0.3259 | 0.9992 | 0.1014 |
+| 30 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 30 | HMM, 2-means start, 10 iterations at most | 0.7597 | 0.0995 | 0.9797 |
+| 30 | HMM, 2-means start with inflated variance, run to convergence | 0.9943 | 0.9930 | 0.9947 |
+| 30 | HMM fitted to the log price instead of returns | 0.5073 | 0.8363 | 0.3976 |
 | 31 | WK-means | 0.9435 | 0.9098 | 0.9548 |
 | 31 | HMM, smoothed | 0.9951 | 0.9902 | 0.9967 |
 | 31 | HMM, filtered | 0.9798 | 0.9624 | 0.9856 |
+| 31 | HMM, usual start, stopped after 10 iterations | 0.3395 | 0.9977 | 0.1201 |
+| 31 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 31 | HMM, 2-means start, 10 iterations at most | 0.6797 | 0.2646 | 0.8180 |
+| 31 | HMM, 2-means start with inflated variance, run to convergence | 0.9955 | 0.9902 | 0.9972 |
+| 31 | HMM fitted to the log price instead of returns | 0.4451 | 0.8268 | 0.3178 |
 | 32 | WK-means | 0.9344 | 0.8519 | 0.9620 |
 | 32 | HMM, smoothed | 0.9950 | 0.9914 | 0.9963 |
 | 32 | HMM, filtered | 0.9845 | 0.9658 | 0.9907 |
+| 32 | HMM, usual start, stopped after 10 iterations | 0.2965 | 0.9995 | 0.0621 |
+| 32 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 32 | HMM, 2-means start, 10 iterations at most | 0.7043 | 0.2212 | 0.8653 |
+| 32 | HMM, 2-means start with inflated variance, run to convergence | 0.9949 | 0.9914 | 0.9961 |
+| 32 | HMM fitted to the log price instead of returns | 0.5038 | 0.7330 | 0.4274 |
 | 33 | WK-means | 0.9355 | 0.8885 | 0.9512 |
 | 33 | HMM, smoothed | 0.9956 | 0.9913 | 0.9970 |
 | 33 | HMM, filtered | 0.9809 | 0.9635 | 0.9867 |
+| 33 | HMM, usual start, stopped after 10 iterations | 0.3301 | 0.9966 | 0.1079 |
+| 33 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 33 | HMM, 2-means start, 10 iterations at most | 0.7042 | 0.2306 | 0.8621 |
+| 33 | HMM, 2-means start with inflated variance, run to convergence | 0.9956 | 0.9913 | 0.9970 |
+| 33 | HMM fitted to the log price instead of returns | 0.5521 | 0.6000 | 0.5361 |
 | 34 | WK-means | 0.9557 | 0.9055 | 0.9724 |
 | 34 | HMM, smoothed | 0.9935 | 0.9842 | 0.9966 |
 | 34 | HMM, filtered | 0.9809 | 0.9611 | 0.9875 |
+| 34 | HMM, usual start, stopped after 10 iterations | 0.3959 | 0.9960 | 0.1959 |
+| 34 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 34 | HMM, 2-means start, 10 iterations at most | 0.7591 | 0.0529 | 0.9944 |
+| 34 | HMM, 2-means start with inflated variance, run to convergence | 0.9935 | 0.9842 | 0.9966 |
+| 34 | HMM fitted to the log price instead of returns | 0.5109 | 0.6910 | 0.4509 |
 | 35 | WK-means | 0.9412 | 0.8984 | 0.9555 |
 | 35 | HMM, smoothed | 0.9948 | 0.9908 | 0.9961 |
 | 35 | HMM, filtered | 0.9781 | 0.9609 | 0.9839 |
+| 35 | HMM, usual start, stopped after 10 iterations | 0.3314 | 0.9982 | 0.1092 |
+| 35 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 35 | HMM, 2-means start, 10 iterations at most | 0.2454 | 0.9449 | 0.0122 |
+| 35 | HMM, 2-means start with inflated variance, run to convergence | 0.9948 | 0.9908 | 0.9961 |
+| 35 | HMM fitted to the log price instead of returns | 0.6456 | 0.6160 | 0.6555 |
 | 36 | WK-means | 0.9440 | 0.9218 | 0.9514 |
 | 36 | HMM, smoothed | 0.9912 | 0.9827 | 0.9941 |
 | 36 | HMM, filtered | 0.9845 | 0.9720 | 0.9886 |
+| 36 | HMM, usual start, stopped after 10 iterations | 0.3304 | 0.9991 | 0.1075 |
+| 36 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.9751 | 0.9949 | 0.9685 |
+| 36 | HMM, 2-means start, 10 iterations at most | 0.7576 | 0.0590 | 0.9905 |
+| 36 | HMM, 2-means start with inflated variance, run to convergence | 0.9912 | 0.9827 | 0.9941 |
+| 36 | HMM fitted to the log price instead of returns | 0.5317 | 0.1078 | 0.6730 |
 | 37 | WK-means | 0.9494 | 0.9013 | 0.9655 |
 | 37 | HMM, smoothed | 0.9957 | 0.9897 | 0.9977 |
 | 37 | HMM, filtered | 0.9851 | 0.9710 | 0.9898 |
+| 37 | HMM, usual start, stopped after 10 iterations | 0.3613 | 0.9981 | 0.1490 |
+| 37 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7504 | 0.0019 | 0.9999 |
+| 37 | HMM, 2-means start, 10 iterations at most | 0.7549 | 0.0200 | 0.9999 |
+| 37 | HMM, 2-means start with inflated variance, run to convergence | 0.9957 | 0.9897 | 0.9977 |
+| 37 | HMM fitted to the log price instead of returns | 0.3441 | 0.4084 | 0.3227 |
 | 38 | WK-means | 0.9593 | 0.8964 | 0.9803 |
 | 38 | HMM, smoothed | 0.9941 | 0.9847 | 0.9972 |
 | 38 | HMM, filtered | 0.9773 | 0.9507 | 0.9862 |
+| 38 | HMM, usual start, stopped after 10 iterations | 0.3467 | 0.9986 | 0.1294 |
+| 38 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 38 | HMM, 2-means start, 10 iterations at most | 0.5556 | 0.4259 | 0.5988 |
+| 38 | HMM, 2-means start with inflated variance, run to convergence | 0.9940 | 0.9847 | 0.9971 |
+| 38 | HMM fitted to the log price instead of returns | 0.5464 | 0.6956 | 0.4967 |
 | 39 | WK-means | 0.9273 | 0.8979 | 0.9371 |
 | 39 | HMM, smoothed | 0.9935 | 0.9914 | 0.9943 |
 | 39 | HMM, filtered | 0.9768 | 0.9498 | 0.9859 |
+| 39 | HMM, usual start, stopped after 10 iterations | 0.2990 | 0.9957 | 0.0667 |
+| 39 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 39 | HMM, 2-means start, 10 iterations at most | 0.2728 | 0.8424 | 0.0830 |
+| 39 | HMM, 2-means start with inflated variance, run to convergence | 0.9930 | 0.9914 | 0.9936 |
+| 39 | HMM fitted to the log price instead of returns | 0.3674 | 0.6689 | 0.2669 |
 | 40 | WK-means | 0.9152 | 0.8548 | 0.9354 |
 | 40 | HMM, smoothed | 0.9940 | 0.9890 | 0.9957 |
 | 40 | HMM, filtered | 0.9789 | 0.9619 | 0.9846 |
+| 40 | HMM, usual start, stopped after 10 iterations | 0.3161 | 0.9972 | 0.0891 |
+| 40 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 40 | HMM, 2-means start, 10 iterations at most | 0.6131 | 0.3605 | 0.6973 |
+| 40 | HMM, 2-means start with inflated variance, run to convergence | 0.9940 | 0.9890 | 0.9957 |
+| 40 | HMM fitted to the log price instead of returns | 0.4466 | 0.7841 | 0.3341 |
 | 41 | WK-means | 0.9344 | 0.9111 | 0.9423 |
 | 41 | HMM, smoothed | 0.9972 | 0.9965 | 0.9975 |
 | 41 | HMM, filtered | 0.9846 | 0.9722 | 0.9887 |
+| 41 | HMM, usual start, stopped after 10 iterations | 0.3387 | 0.9986 | 0.1187 |
+| 41 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7573 | 0.0618 | 0.9891 |
+| 41 | HMM, 2-means start, 10 iterations at most | 0.7240 | 0.2113 | 0.8949 |
+| 41 | HMM, 2-means start with inflated variance, run to convergence | 0.9971 | 0.9965 | 0.9973 |
+| 41 | HMM fitted to the log price instead of returns | 0.5228 | 0.5770 | 0.5048 |
 | 42 | WK-means | 0.9554 | 0.9093 | 0.9708 |
 | 42 | HMM, smoothed | 0.9954 | 0.9871 | 0.9982 |
 | 42 | HMM, filtered | 0.9875 | 0.9689 | 0.9937 |
+| 42 | HMM, usual start, stopped after 10 iterations | 0.3366 | 0.9978 | 0.1162 |
+| 42 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.5005 | 0.5005 | 0.5006 |
+| 42 | HMM, 2-means start, 10 iterations at most | 0.7588 | 0.0761 | 0.9863 |
+| 42 | HMM, 2-means start with inflated variance, run to convergence | 0.9953 | 0.9871 | 0.9981 |
+| 42 | HMM fitted to the log price instead of returns | 0.4793 | 0.7800 | 0.3791 |
 | 43 | WK-means | 0.5492 | 0.6070 | 0.5299 |
 | 43 | HMM, smoothed | 0.9947 | 0.9848 | 0.9980 |
 | 43 | HMM, filtered | 0.9791 | 0.9472 | 0.9898 |
+| 43 | HMM, usual start, stopped after 10 iterations | 0.3129 | 0.9994 | 0.0840 |
+| 43 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 43 | HMM, 2-means start, 10 iterations at most | 0.7602 | 0.0683 | 0.9909 |
+| 43 | HMM, 2-means start with inflated variance, run to convergence | 0.9947 | 0.9848 | 0.9980 |
+| 43 | HMM fitted to the log price instead of returns | 0.4265 | 0.4000 | 0.4354 |
 | 44 | WK-means | 0.9544 | 0.9044 | 0.9710 |
 | 44 | HMM, smoothed | 0.9955 | 0.9897 | 0.9975 |
 | 44 | HMM, filtered | 0.9809 | 0.9627 | 0.9870 |
+| 44 | HMM, usual start, stopped after 10 iterations | 0.2845 | 0.9975 | 0.0468 |
+| 44 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 44 | HMM, 2-means start, 10 iterations at most | 0.5947 | 0.4305 | 0.6495 |
+| 44 | HMM, 2-means start with inflated variance, run to convergence | 0.9955 | 0.9897 | 0.9975 |
+| 44 | HMM fitted to the log price instead of returns | 0.3937 | 0.7116 | 0.2878 |
 | 45 | WK-means | 0.9473 | 0.8979 | 0.9638 |
 | 45 | HMM, smoothed | 0.9942 | 0.9889 | 0.9959 |
 | 45 | HMM, filtered | 0.9782 | 0.9570 | 0.9852 |
+| 45 | HMM, usual start, stopped after 10 iterations | 0.3149 | 0.9986 | 0.0870 |
+| 45 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 45 | HMM, 2-means start, 10 iterations at most | 0.2507 | 0.8759 | 0.0423 |
+| 45 | HMM, 2-means start with inflated variance, run to convergence | 0.9942 | 0.9889 | 0.9959 |
+| 45 | HMM fitted to the log price instead of returns | 0.4544 | 0.6383 | 0.3931 |
 | 46 | WK-means | 0.9489 | 0.8817 | 0.9714 |
 | 46 | HMM, smoothed | 0.9940 | 0.9891 | 0.9956 |
 | 46 | HMM, filtered | 0.9816 | 0.9649 | 0.9872 |
+| 46 | HMM, usual start, stopped after 10 iterations | 0.3768 | 0.9982 | 0.1697 |
+| 46 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 46 | HMM, 2-means start, 10 iterations at most | 0.3699 | 0.6689 | 0.2702 |
+| 46 | HMM, 2-means start with inflated variance, run to convergence | 0.9940 | 0.9891 | 0.9956 |
+| 46 | HMM fitted to the log price instead of returns | 0.4158 | 0.5988 | 0.3549 |
 | 47 | WK-means | 0.9431 | 0.9038 | 0.9562 |
 | 47 | HMM, smoothed | 0.9944 | 0.9876 | 0.9966 |
 | 47 | HMM, filtered | 0.9781 | 0.9637 | 0.9828 |
+| 47 | HMM, usual start, stopped after 10 iterations | 0.3011 | 0.9998 | 0.0682 |
+| 47 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.7500 | 0.0000 | 1.0000 |
+| 47 | HMM, 2-means start, 10 iterations at most | 0.2823 | 0.8056 | 0.1078 |
+| 47 | HMM, 2-means start with inflated variance, run to convergence | 0.9944 | 0.9876 | 0.9966 |
+| 47 | HMM fitted to the log price instead of returns | 0.3823 | 0.6000 | 0.3098 |
 | 48 | WK-means | 0.5500 | 0.5506 | 0.5497 |
 | 48 | HMM, smoothed | 0.9969 | 0.9954 | 0.9975 |
 | 48 | HMM, filtered | 0.9844 | 0.9728 | 0.9883 |
+| 48 | HMM, usual start, stopped after 10 iterations | 0.3143 | 1.0000 | 0.0858 |
+| 48 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.2500 | 1.0000 | 0.0000 |
+| 48 | HMM, 2-means start, 10 iterations at most | 0.4343 | 0.5840 | 0.3844 |
+| 48 | HMM, 2-means start with inflated variance, run to convergence | 0.9969 | 0.9954 | 0.9975 |
+| 48 | HMM fitted to the log price instead of returns | 0.5349 | 0.6094 | 0.5101 |
 | 49 | WK-means | 0.9538 | 0.9157 | 0.9666 |
 | 49 | HMM, smoothed | 0.9950 | 0.9920 | 0.9960 |
 | 49 | HMM, filtered | 0.9817 | 0.9743 | 0.9841 |
+| 49 | HMM, usual start, stopped after 10 iterations | 0.3433 | 0.9990 | 0.1247 |
+| 49 | HMM, 2-means start with inflated variance, 10 iterations at most | 0.4713 | 0.5291 | 0.4520 |
+| 49 | HMM, 2-means start, 10 iterations at most | 0.7031 | 0.2389 | 0.8579 |
+| 49 | HMM, 2-means start with inflated variance, run to convergence | 0.9950 | 0.9920 | 0.9960 |
+| 49 | HMM fitted to the log price instead of returns | 0.4030 | 0.6313 | 0.3269 |
