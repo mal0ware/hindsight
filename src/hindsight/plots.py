@@ -60,11 +60,30 @@ def _save(fig: plt.Figure, path: Path) -> None:
     plt.close(fig)
 
 
+FIXED_LABELS_NOTE = (
+    "Black line: 95% interval from a block bootstrap of daily returns with the labels held fixed."
+)
+
+
 def _sharpe_bars(
-    table: pd.DataFrame, rows: list[tuple[str, str, str]], title: str, path: Path
+    table: pd.DataFrame,
+    rows: list[tuple[str, str, str]],
+    title: str,
+    path: Path,
+    note: str = FIXED_LABELS_NOTE,
+    intervals: dict[str, tuple[float, float]] | None = None,
 ) -> None:
-    """Horizontal bars of Sharpe ratios with bootstrap intervals."""
-    indexed = table.set_index("strategy")
+    """Horizontal bars of Sharpe ratios with bootstrap intervals.
+
+    The intervals are the fixed-label ones in ``table`` unless ``intervals``
+    gives a pair for each strategy.
+    """
+    indexed = table.set_index("strategy").copy()
+    if intervals is not None:
+        for name, (lo, hi) in intervals.items():
+            indexed.loc[name, "sharpe_ci_low"] = lo
+            indexed.loc[name, "sharpe_ci_high"] = hi
+        indexed = indexed.loc[[name for name, _, _ in rows]]
     fig, ax = plt.subplots(figsize=(8.0, 0.62 * len(rows) + 1.5))
     positions = np.arange(len(rows))[::-1]
     for y, (name, label, colour) in zip(positions, rows, strict=True):
@@ -99,7 +118,7 @@ def _sharpe_bars(
     fig.text(
         0.02,
         0.02,
-        "Black line: 95% interval from a block bootstrap of daily returns.",
+        note,
         ha="left",
         color=INK_2,
         fontsize=8.5,
@@ -108,9 +127,21 @@ def _sharpe_bars(
     _save(fig, path)
 
 
-def sharpe_three_ways(tables: ex.ThreeWayTables, path: Path) -> None:
+def sharpe_three_ways(tables: ex.ThreeWayTables, refit: pd.DataFrame, path: Path) -> None:
+    """The headline chart, with intervals from the bootstrap that refits the model."""
     sample = tables.sample.set_index("item")["value"]
     span = f"{sample['first day evaluated'][:4]} to {sample['last day in sample'][:4]}"
+    boot = refit.set_index("quantity")
+    keys = {
+        ex.HMM_SMOOTHED: "sharpe_smoothed",
+        ex.HMM_FILTERED_FULL: "sharpe_filtered_full",
+        ex.HMM_FILTERED_PAST: "sharpe_filtered_past",
+        ex.BUY_AND_HOLD: "sharpe_buy_and_hold",
+    }
+    intervals = {
+        name: (float(boot.loc[key, "ci_low"]), float(boot.loc[key, "ci_high"]))
+        for name, key in keys.items()
+    }
     _sharpe_bars(
         tables.performance,
         [
@@ -121,6 +152,11 @@ def sharpe_three_ways(tables: ex.ThreeWayTables, path: Path) -> None:
         ],
         f"One regime strategy, three information sets (US market, {span})",
         path,
+        note=(
+            "Black line: 95% interval from a stationary bootstrap of daily returns, "
+            "model refitted on every resample."
+        ),
+        intervals=intervals,
     )
 
 
@@ -241,5 +277,62 @@ def hamilton_probabilities(tables: ex.HamiltonTables, path: Path) -> None:
         fontsize=11,
         fontweight="bold",
     )
+    fig.tight_layout()
+    _save(fig, path)
+
+
+def cross_section_gaps(table: pd.DataFrame, path: Path) -> None:
+    """The smoother gap and the parameter gap for every series, one row per rule."""
+    rules = [
+        (ex.SPEC_K2, "2 states"),
+        (ex.SPEC_K3_AVOID, "3 states, out of the\nmost volatile state"),
+        (ex.SPEC_K3_CALM, "3 states, in only the\nleast volatile state"),
+    ]
+    kinds = [
+        ("gap_smoother", "From the smoother (smoothed minus filtered)", BLUE, 0.16),
+        ("gap_parameters", "From the parameters (full-sample minus past-only)", ORANGE, -0.16),
+    ]
+    fig, ax = plt.subplots(figsize=(8.0, 4.2))
+    for row, (rule, _) in enumerate(rules):
+        part = table[table["rule"] == rule]
+        base = len(rules) - 1 - row
+        for column, label, colour, offset in kinds:
+            values = part[column].to_numpy()
+            ax.scatter(
+                values,
+                np.full(values.shape, base + offset),
+                s=34,
+                color=colour,
+                alpha=0.75,
+                linewidths=0,
+                zorder=3,
+                label=label if row == 0 else None,
+            )
+            market = part.loc[part["series"] == part["series"].iloc[0], column]
+            ax.scatter(
+                market,
+                [base + offset],
+                s=70,
+                facecolors="none",
+                edgecolors=INK,
+                linewidths=1.2,
+                zorder=4,
+                label="The market index" if row == 0 and column == "gap_smoother" else None,
+            )
+            ax.plot(
+                [float(np.median(values))] * 2,
+                [base + offset - 0.11, base + offset + 0.11],
+                color=INK,
+                linewidth=1.4,
+                zorder=5,
+            )
+    ax.axvline(0.0, color=AXIS, linewidth=1.0, zorder=1)
+    ax.set_yticks(range(len(rules)))
+    ax.set_yticklabels([label for _, label in rules][::-1])
+    ax.set_ylim(-0.6, len(rules) - 0.4)
+    ax.grid(axis="y", visible=False)
+    ax.set_xlabel("Gap in annualised Sharpe ratio, before costs. Short black line: median.")
+    ax.set_title(f"Where the look-ahead comes from, {table['series'].nunique()} return series")
+    ax.legend(loc="lower right", fontsize=8.5)
     fig.tight_layout()
     _save(fig, path)

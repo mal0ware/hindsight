@@ -106,6 +106,44 @@ def default_start(y: FloatArray, k: int = 2, p_stay: float = 0.95) -> GaussianMS
     return GaussianMS(mu=mu, sigma=sigma, P=P, initial=np.full(k, 1.0 / k))
 
 
+def random_start(y: FloatArray, k: int, rng: np.random.Generator) -> GaussianMS:
+    """A random starting point for EM, for checking for other local maxima.
+
+    Means are the sample mean plus half a sample standard deviation of noise.
+    Standard deviations are the sample value times ``exp(u)`` with ``u``
+    uniform on (-1.5, 1). Each state stays with a probability uniform on
+    (0.5, 0.995) and leaves to the others in Dirichlet(1) proportions.
+    """
+    y = np.asarray(y, dtype=np.float64)
+    mean, sd = float(np.mean(y)), float(np.std(y))
+    mu = mean + 0.5 * sd * rng.standard_normal(k)
+    sigma = sd * np.exp(rng.uniform(-1.5, 1.0, size=k))
+    P = np.zeros((k, k))
+    for i in range(k):
+        stay = float(rng.uniform(0.5, 0.995))
+        P[i, i] = stay
+        if k > 1:
+            others = [j for j in range(k) if j != i]
+            P[i, others] = (1.0 - stay) * rng.dirichlet(np.ones(k - 1))
+        else:
+            P[i, i] = 1.0
+    return GaussianMS(mu=mu, sigma=sigma, P=P, initial=rng.dirichlet(np.ones(k)))
+
+
+def is_degenerate(y: FloatArray, params: GaussianMS) -> bool:
+    """True when a state has collapsed onto a handful of equal observations.
+
+    The Gaussian likelihood is unbounded when one state's standard deviation
+    shrinks onto repeated values, so such a fit is not a usable maximum. A fit
+    is called degenerate when a state's standard deviation is below 1% of the
+    sample's, or a state carries fewer than ten days of smoothed probability.
+    """
+    y = np.asarray(y, dtype=np.float64)
+    if float(np.min(params.sigma)) < 0.01 * float(np.std(y)):
+        return True
+    return bool(np.min(infer(y, params).smoothed.sum(axis=0)) < 10.0)
+
+
 def _sort_states(params: GaussianMS) -> GaussianMS:
     order = np.argsort(params.sigma, kind="stable")
     return GaussianMS(

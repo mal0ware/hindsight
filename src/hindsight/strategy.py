@@ -40,15 +40,25 @@ TRADING_DAYS = 252
 class ThreeWay:
     """Probability that each day is calm, under the three information sets.
 
-    ``filtered_past`` is NaN before the first refit date.
+    ``filtered_past`` is NaN before the first refit date. The ``*_top`` arrays
+    hold the probability of the highest-variance state instead; with two
+    states they are one minus the calm probability. ``full_converged`` and
+    ``past_converged`` record whether each EM fit met its stopping rule.
     """
 
     smoothed: FloatArray
     filtered_full: FloatArray
     filtered_past: FloatArray
+    smoothed_top: FloatArray
+    filtered_full_top: FloatArray
+    filtered_past_top: FloatArray
     full_params: GaussianMS
     past_params: list[GaussianMS]
     refit_ends: IntArray
+    full_converged: bool
+    full_n_iter: int
+    past_converged: BoolArray
+    past_n_iter: IntArray
 
 
 @dataclass(frozen=True)
@@ -57,6 +67,7 @@ class Performance:
     ann_vol: float
     sharpe: float
     max_drawdown: float
+    max_drawdown_excess: float
     time_in_market: float
     switches: int
 
@@ -76,7 +87,15 @@ def calm_probability(prob: FloatArray) -> FloatArray:
     return out
 
 
-def three_way_probabilities(y: FloatArray, refit_ends: IntArray, k: int = 2) -> ThreeWay:
+def top_probability(prob: FloatArray) -> FloatArray:
+    """Probability of the highest-variance state (the last one after sorting)."""
+    out: FloatArray = prob[:, -1]
+    return out
+
+
+def three_way_probabilities(
+    y: FloatArray, refit_ends: IntArray, k: int = 2, max_iter: int = 5000
+) -> ThreeWay:
     """Calm-state probabilities under the three information sets.
 
     ``refit_ends`` are the indices of the days on which the parameters are
@@ -88,25 +107,39 @@ def three_way_probabilities(y: FloatArray, refit_ends: IntArray, k: int = 2) -> 
     refit_ends = np.asarray(refit_ends, dtype=np.int64)
     if refit_ends.size == 0 or np.any(np.diff(refit_ends) <= 0) or refit_ends[-1] >= n:
         raise ValueError("refit_ends must be increasing indices into y")
-    full = fit_em(y, k=k)
+    full = fit_em(y, k=k, max_iter=max_iter)
     inference = infer(y, full.params)
     filtered_past = np.full(n, np.nan)
+    filtered_past_top = np.full(n, np.nan)
     past_params: list[GaussianMS] = []
+    past_converged = np.zeros(refit_ends.size, dtype=np.bool_)
+    past_n_iter = np.zeros(refit_ends.size, dtype=np.int64)
     for i, end in enumerate(refit_ends):
         stop = int(refit_ends[i + 1]) if i + 1 < refit_ends.size else n
-        params = fit_em(y[: end + 1], k=k).params
+        fit = fit_em(y[: end + 1], k=k, max_iter=max_iter)
+        params = fit.params
         past_params.append(params)
+        past_converged[i] = fit.converged
+        past_n_iter[i] = fit.n_iter
         # the filter is causal, so running it to ``stop`` with these
         # parameters gives each day's probability from that day's history only
         filtered = filtered_probabilities(y[:stop], params)
         filtered_past[end:stop] = filtered[end:stop, 0]
+        filtered_past_top[end:stop] = filtered[end:stop, -1]
     return ThreeWay(
         smoothed=calm_probability(inference.smoothed),
         filtered_full=calm_probability(inference.filtered),
         filtered_past=filtered_past,
+        smoothed_top=top_probability(inference.smoothed),
+        filtered_full_top=top_probability(inference.filtered),
+        filtered_past_top=filtered_past_top,
         full_params=full.params,
         past_params=past_params,
         refit_ends=refit_ends,
+        full_converged=full.converged,
+        full_n_iter=full.n_iter,
+        past_converged=past_converged,
+        past_n_iter=past_n_iter,
     )
 
 
@@ -164,13 +197,20 @@ def wk_three_way(
     )
 
 
-def positions(calm: BoolArray) -> FloatArray:
-    """Position held on each day: 1 if the previous day was labelled calm.
+def positions(calm: BoolArray, delay: int = 0) -> FloatArray:
+    """Position held on each day: 1 if day ``t - 1 - delay`` was labelled calm.
 
-    The first day has no previous label and starts in cash.
+    With ``delay = 0`` the label from the close of day ``t - 1`` earns the
+    return from that close to the close of day ``t``, so the trade is assumed
+    to happen at the very close that produced the signal. With ``delay = 1``
+    the trade happens one close later: the label of day ``t - 2`` earns the
+    return of day ``t``. Days with no label that old start in cash.
     """
+    if delay < 0:
+        raise ValueError("delay must not be negative")
+    lag = 1 + delay
     pos = np.zeros(calm.shape[0])
-    pos[1:] = calm[:-1].astype(np.float64)
+    pos[lag:] = calm[:-lag].astype(np.float64)
     return pos
 
 
@@ -186,19 +226,34 @@ def strategy_returns(excess: FloatArray, position: FloatArray, cost_bps: float =
 
 
 def max_drawdown(returns: FloatArray) -> float:
-    """Largest peak-to-trough fall of the compounded return series, as a fraction."""
+    """Largest peak-to-trough fall of the compounded return series, as a fraction.
+
+    The answer depends on which returns are compounded. Excess returns give
+    the fall of wealth measured against bills; total returns (excess plus the
+    bill rate) give the fall an investor would see in the account.
+    """
     wealth = np.cumprod(1.0 + returns)
     peak = np.maximum.accumulate(np.maximum(wealth, 1.0))
     return float(np.max(1.0 - wealth / peak))
 
 
-def performance(returns: FloatArray, position: FloatArray) -> Performance:
+def performance(
+    returns: FloatArray, position: FloatArray, rf: FloatArray | None = None
+) -> Performance:
+    """Summary of a series of daily excess returns.
+
+    ``max_drawdown`` is computed on total returns, ``returns + rf``, when the
+    bill rate ``rf`` is given, and on the excess returns otherwise.
+    ``max_drawdown_excess`` is always on the excess returns.
+    """
     returns = np.asarray(returns, dtype=np.float64)
+    total = returns if rf is None else returns + np.asarray(rf, dtype=np.float64)
     return Performance(
         ann_return=float(np.mean(returns)) * TRADING_DAYS,
         ann_vol=float(np.std(returns, ddof=1)) * float(np.sqrt(TRADING_DAYS)),
         sharpe=sharpe_ratio(returns),
-        max_drawdown=max_drawdown(returns),
+        max_drawdown=max_drawdown(total),
+        max_drawdown_excess=max_drawdown(returns),
         time_in_market=float(np.mean(position)),
         switches=int(np.sum(np.abs(np.diff(position)) > 0.0)),
     )
@@ -226,4 +281,24 @@ def bootstrap_sharpes(
         sd = sample.std(axis=0, ddof=1)
         with np.errstate(divide="ignore", invalid="ignore"):
             out[b] = sample.mean(axis=0) / sd * np.sqrt(periods)
+    return out
+
+
+def stationary_bootstrap_index(n: int, mean_block: float, rng: np.random.Generator) -> IntArray:
+    """Row indices for one stationary bootstrap resample of ``n`` observations.
+
+    Blocks start at a uniformly drawn row and have geometric lengths with mean
+    ``mean_block``; a block that runs off the end wraps to the start. This is
+    written from the general description of the stationary bootstrap of
+    Politis and Romano (1994), which I did not read.
+    """
+    if n < 1 or mean_block < 1.0:
+        raise ValueError("need n >= 1 and mean_block >= 1")
+    out = np.empty(n, dtype=np.int64)
+    filled = 0
+    while filled < n:
+        begin = int(rng.integers(0, n))
+        length = min(int(rng.geometric(1.0 / mean_block)), n - filled)
+        out[filled : filled + length] = (begin + np.arange(length)) % n
+        filled += length
     return out

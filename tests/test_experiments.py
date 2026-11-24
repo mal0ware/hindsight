@@ -74,7 +74,7 @@ def test_synthetic_experiment_is_reproducible_and_accurate() -> None:
     summary, runs = ex.wk_synthetic(SMALL)
     again, _ = ex.wk_synthetic(SMALL)
     pd.testing.assert_frame_equal(summary, again)
-    assert len(runs) == 3 * SMALL.synthetic_runs
+    assert len(runs) == 8 * SMALL.synthetic_runs
     by_method = summary.set_index("method")["total_mean_pct"]
     assert by_method["HMM, smoothed"] > 95.0
     assert by_method["WK-means"] > 60.0
