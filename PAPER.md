@@ -94,14 +94,16 @@ The barycenter for `p = 2` (the mean of the sorted atoms) is in the code but is 
 
 ### Not from a source I read
 
-- The circular block bootstrap used for the intervals (`strategy.bootstrap_sharpes`) is written from the general description of the method: resample whole blocks of consecutive days with wrap-around. I did not read Politis and Romano (1992) or Künsch (1989). The block length of 63 days is my choice.
+- The circular block bootstrap used for the fixed-label intervals (`strategy.bootstrap_sharpes`) is written from the general description of the method: resample whole blocks of consecutive days with wrap-around. I did not read Politis and Romano (1992) or Künsch (1989). The block length of 63 days is my choice.
+- The stationary bootstrap used for the refitted intervals (`strategy.stationary_bootstrap_index`) is also written from the general description: blocks start at a uniformly drawn day and have geometric lengths, here with mean 63 days. I did not read Politis and Romano (1994).
+- The random starting points for EM (`model.random_start`) and the rule for calling a fit degenerate (`model.is_degenerate`) are my own.
 - The Sharpe ratio is the mean daily excess return over its standard deviation, times `sqrt(252)`.
 
 ## Comparison with the sources
 
 ### Hamilton (1989), Table I
 
-US real GNP growth, 135 quarters from 1951Q2 to 1984Q4, 131 used after four lags. Full table: `results/hamilton1989_table1.csv`.
+US real GNP growth, 135 quarters from 1951Q2 to 1984Q4, 131 used after four lags. The series is read from the test module of statsmodels (see the Data section of the README). Full table: `results/hamilton1989_table1.csv`.
 
 | Parameter | Paper | Here | Paper s.e. | Here s.e. |
 | --- | --- | --- | --- | --- |
@@ -115,7 +117,7 @@ US real GNP growth, 135 quarters from 1951Q2 to 1984Q4, 131 used after four lags
 | phi3 | -0.247 | -0.2470 | 0.107 | 0.1069 |
 | phi4 | -0.213 | -0.2129 | 0.110 | 0.1105 |
 
-The largest difference is 0.0011, in `alpha0`. The log likelihood here is -181.2634 at my estimates and -181.2638 at the paper's printed estimates, so the printed values are 0.0004 log-likelihood units below the maximum I find. Likely reasons for the small differences: the data file I use stores the series in single precision, the paper prints four digits, and the likelihood is flat near the maximum. The paper does not print its log likelihood, so that number cannot be compared.
+The largest difference is 0.0011, in `alpha0`. The log likelihood here is -181.2634 at my estimates and -181.2638 at the paper's printed estimates, so the printed values are 0.0004 log-likelihood units below the maximum I find. Likely reasons for the small differences: the copy of the series I use came from a file stored in single precision, the paper prints four digits, and the likelihood is flat near the maximum. The paper does not print its log likelihood, so that number cannot be compared.
 
 ### Hamilton (1989), Table II
 
@@ -149,7 +151,25 @@ Synthetic geometric Brownian motion, 20 years of hourly steps, 10 regime changes
 | WK-means | 90.60 | 90.39 | 87.24 | 86.68 | 91.72 | 91.63 |
 | HMM | 58.16 | 99.48 | 41.51 | 98.93 | 63.72 | 99.67 |
 
-WK-means reproduces. The HMM does not, and the gap is large. The paper's HMM labels 58% of returns correctly; a two-state Gaussian HMM fitted here by EM to the same kind of path labels 99.5% correctly with smoothed probabilities and 98.0% with filtered ones. The paper does not say which HMM software, starting values or decoding rule it used. On a path where one state has 1.5 times the volatility of the other and each regime lasts 882 steps, a converged HMM should separate the states well, so my guess is that the paper's fit stopped at a poor local optimum or was decoded differently. I cannot confirm that from the paper.
+WK-means reproduces. The HMM does not, and the gap is large. The paper's HMM labels 58% of returns correctly; a two-state Gaussian HMM fitted here by EM to the same kind of path labels 99.5% correctly with smoothed probabilities and 98.0% with filtered ones. Section 3.1.2 of the paper says only that it fits "a Gaussian HMM". It does not name the software, the starting values, the stopping rule or the decoding rule.
+
+To see what could produce 58%, I ran fits that are weaker on purpose on the same 50 paths. This was done after the first results. In every row the state with the larger standard deviation is taken as the regime-on state and the labels are the smoothed probabilities above 0.5.
+
+| Fit | Total | Regime-on | Regime-off |
+| --- | --- | --- | --- |
+| Paper, HMM | 58.16 | 41.51 | 63.72 |
+| EM from the deterministic start, run to convergence | 99.48 | 98.93 | 99.67 |
+| Deterministic start, stopped after 10 iterations | 33.25 | 99.82 | 11.06 |
+| Start split by mean, variance inflated by `1e-3`, at most 10 iterations, stop when the log likelihood gains less than 0.01 | 52.32 | 58.34 | 50.31 |
+| Start split by mean, no inflation, same limits | 63.61 | 38.05 | 72.13 |
+| Start split by mean, variance inflated, run to convergence | 99.49 | 98.93 | 99.67 |
+| Model fitted to the cumulated log price instead of returns | 47.77 | 62.58 | 42.83 |
+
+The start split by mean (`experiments.two_means_start`) puts the two means at the centres of a two-cluster k-means on the returns, gives both states the same variance and draws the transition matrix at random. That, a limit of 10 iterations and a tolerance of 0.01 are the defaults of `GaussianHMM` in the hmmlearn library, as I read them in its source on 2026-11-24. The library also adds `1e-3` to the starting variance, which is over 30 times the variance of these hourly returns, and puts a weak prior on the variances that I did not copy. I did not run hmmlearn itself.
+
+What this shows: every fit that is run to convergence scores 99.5%, whatever the start, and every fit stopped at 10 iterations scores between 33% and 64%. The mean-split start without inflation comes closest to the paper on all three scores (63.6, 38.1 and 72.1 against 58.2, 41.5 and 63.7), with a standard deviation across paths of 19 points. The two regimes have nearly the same mean and different volatility, so a fit that is still close to a split by mean labels them almost at random. A model fitted to the price level instead of returns is also near chance.
+
+What it does not show: which of these the paper did. An under-converged fit is one explanation that produces numbers of the right size. I have no evidence of the software or settings the authors used.
 
 The paper reports its spread as "95% CI" without a formula (5.81 for WK-means total accuracy). The standard deviation across my 50 paths is 11.43, which would give a half-width of 3.2 as `1.96 sd / sqrt(50)`. I cannot tell which definition the paper used.
 
@@ -169,35 +189,115 @@ The headline result is not a replication. It is one strategy run under three inf
 - The rule is: hold the market on day `t + 1` if day `t` is labelled calm (probability above 0.5), otherwise hold bills.
 - Smoothed labels use S1 with full-sample parameters. Filtered labels use F2 with full-sample parameters. Past-only labels refit the parameters on the last trading day of every month using data up to that day, and filter with them until the next refit.
 - The first refit is on 1936-07-31, ten years into the sample. All versions are scored on the same 23,337 days from 1936-08-01.
-- Intervals are from 2,000 circular block bootstrap resamples of the daily strategy returns, 63-day blocks, the same days drawn for every strategy. The labels are held fixed in the resampling, so the intervals describe noise in returns given the labels. They do not include the uncertainty in the fitted parameters.
+- The drawdowns in `results/performance.csv` are on total returns (the strategy's excess return plus the bill rate), with a second column on excess returns.
 
 Results: `results/performance.csv`, `results/sharpe_gaps.csv`, `results/subperiods.csv`.
 
-| Version | Sharpe | 95% interval | Switches | Sharpe at 10 bp per switch |
+| Version | Sharpe | 95% interval, model refitted | 95% interval, labels fixed | Switches | Sharpe at 10 bp per switch |
+| --- | --- | --- | --- | --- | --- |
+| Smoothed labels | 1.24 | 1.00 to 1.60 | 1.02 to 1.45 | 418 | 1.19 |
+| Filtered labels, full-sample parameters | 0.56 | 0.31 to 0.80 | 0.33 to 0.80 | 1,312 | 0.42 |
+| Filtered labels, past-only parameters | 0.53 | 0.31 to 0.82 | 0.30 to 0.76 | 1,372 | 0.38 |
+| Buy and hold | 0.52 | 0.21 to 0.70 | 0.31 to 0.75 | 0 | 0.52 |
+| Smoothed labels traded on the same day | 1.60 | not run | 1.37 to 1.82 | 418 | 1.55 |
+
+| Gap in Sharpe ratio | Value | 95% interval, model refitted | 95% interval, labels fixed |
+| --- | --- | --- | --- |
+| Total look-ahead: smoothed minus past-only | 0.71 | 0.57 to 0.94 | 0.58 to 0.84 |
+| From the smoother: smoothed minus filtered | 0.68 | 0.57 to 0.93 | 0.54 to 0.81 |
+| From the parameters: full-sample minus past-only | 0.03 | -0.05 to 0.06 | -0.02 to 0.09 |
+
+The same split for Wasserstein k-means labels gives 1.24 for labels built from every window containing the day (the way the paper colours a price path), 0.54 for the trailing window with full-sample centroids and 0.58 for the trailing window with past-only centroids. The centroid gap is -0.05 with a fixed-label interval of -0.11 to 0.02.
+
+### The two kinds of interval
+
+Labels fixed: 2,000 circular block bootstrap resamples of the daily strategy returns, 63-day blocks, the same days drawn for every strategy. The labels are computed once on the real data. These intervals describe noise in returns given the labels and do not include the uncertainty in the fitted parameters or in the labels.
+
+Model refitted: 500 stationary bootstrap resamples of the raw daily excess returns, mean block 63 days (`experiments.refit_bootstrap`, `results/refit_bootstrap.csv`). On each resample the two-state model is fitted to the whole resample, the smoother and the filter are run, and the past-only parameters are refitted at the positions of the year-end refit dates, 91 fits per resample. The first refit is at the position of 1936-12-31, so these runs are scored from 1937, five months later than the monthly runs. The interval is the 2.5th to 97.5th percentile of the resampled statistic.
+
+| Quantity | Monthly refits, real data | Yearly refits, real data | Mean over resamples | 95% interval |
 | --- | --- | --- | --- | --- |
-| Smoothed labels | 1.24 | 1.02 to 1.45 | 418 | 1.19 |
-| Filtered labels, full-sample parameters | 0.56 | 0.33 to 0.80 | 1,312 | 0.42 |
-| Filtered labels, past-only parameters | 0.53 | 0.30 to 0.76 | 1,372 | 0.38 |
-| Buy and hold | 0.52 | 0.31 to 0.75 | 0 | 0.52 |
-| Smoothed labels traded on the same day | 1.60 | 1.37 to 1.82 | 418 | 1.55 |
+| Sharpe, smoothed | 1.24 | 1.24 | 1.30 | 1.00 to 1.60 |
+| Sharpe, filtered, full-sample parameters | 0.56 | 0.56 | 0.55 | 0.31 to 0.80 |
+| Sharpe, filtered, past-only parameters | 0.53 | 0.51 | 0.55 | 0.31 to 0.82 |
+| Sharpe, buy and hold | 0.52 | 0.51 | 0.45 | 0.21 to 0.70 |
+| Gap, total | 0.71 | 0.72 | 0.75 | 0.57 to 0.94 |
+| Gap, from the smoother | 0.68 | 0.68 | 0.74 | 0.57 to 0.93 |
+| Gap, from the parameters | 0.03 | 0.05 | 0.00 | -0.05 to 0.06 |
 
-| Gap in Sharpe ratio | Value | 95% interval |
-| --- | --- | --- |
-| Total look-ahead: smoothed minus past-only | 0.71 | 0.58 to 0.84 |
-| From the smoother: smoothed minus filtered | 0.68 | 0.54 to 0.81 |
-| From the parameters: full-sample minus past-only | 0.03 | -0.02 to 0.09 |
+Three things to know when reading it.
 
-The same split for Wasserstein k-means labels gives 1.24 for labels built from every window containing the day (the way the paper colours a price path), 0.54 for the trailing window with full-sample centroids and 0.58 for the trailing window with past-only centroids. The centroid gap is -0.05 with an interval of -0.11 to 0.02.
+- The share of resamples in which the parameter gap is at or below zero is 46%. With the labels fixed it was 8%. Neither is a p-value: the resamples are centred on the data and are not drawn under a hypothesis of no gap. The first version of this repository printed the 8% without that warning.
+- The resampled parameter gap has a mean of 0.00, below the 0.05 on the real data with the same yearly schedule. A resample puts the blocks in random order, so the crash of 1929 to 1933 is no longer always inside the burn-in. The interval describes a history in which the early sample is typical of the rest.
+- Joining blocks cuts regimes at the joins. The mean smoother gap over resamples (0.74) is a little above the real-data value (0.68), so this did not shrink the gap, but the intervals inherit whatever the cutting does.
+
+### Trading one day later
+
+`strategy.positions(calm, delay=1)` holds the market on day `t + 2` if day `t` is labelled calm. `results/execution_delay.csv`, with fixed-label intervals.
+
+| Version | Same close | One day later | 95% interval, labels fixed |
+| --- | --- | --- | --- |
+| Smoothed labels | 1.24 | 1.02 | 0.80 to 1.24 |
+| Filtered labels, full-sample parameters | 0.56 | 0.55 | 0.32 to 0.78 |
+| Filtered labels, past-only parameters | 0.53 | 0.52 | 0.29 to 0.75 |
+| WK-means, every window containing the day | 1.24 | 1.22 | 1.00 to 1.44 |
+| WK-means, trailing window, full-sample centroids | 0.54 | 0.52 | 0.29 to 0.76 |
+| WK-means, trailing window, past-only centroids | 0.58 | 0.59 | 0.33 to 0.83 |
+
+One day later the total gap is 0.50 (fixed-label interval 0.38 to 0.62; refitted, yearly schedule, 0.36 to 0.61), the smoother gap 0.47 and the parameter gap 0.03. The Wasserstein labels barely move, because a 35-day window changes little in one day.
+
+The past-only label does not exist on the day before the first refit, so the delayed past-only version holds bills on the first of the 23,337 evaluated days.
+
+### Other series and three states
+
+`experiments.cross_section`, `results/cross_section.csv`, `results/cross_section_summary.csv`. The 21 series are the market, the ten value-weighted industry portfolios and the ten value-weighted size deciles, all in excess of the bill rate, on the same 26,338 days and with the same burn-in, monthly refits and evaluation window as the market run.
+
+With three states the states are ordered by standard deviation at every fit. Two rules are run:
+
+- hold unless the probability of the most volatile state is above 0.5;
+- hold only when the probability of the least volatile state is above 0.5.
+
+| Model and rule | Execution | Smoother gap: median (min to max) | Parameter gap: median (min to max) | Smoother gap above zero | Past-only beats buy and hold |
+| --- | --- | --- | --- | --- | --- |
+| 2 states | same close | 0.64 (0.27 to 0.89) | 0.01 (-0.04 to 0.08) | 21 of 21 | 7 of 21 |
+| 3 states, out of the most volatile | same close | 0.24 (0.04 to 0.35) | -0.00 (-0.04 to 0.09) | 21 of 21 | 18 of 21 |
+| 3 states, in only the least volatile | same close | 1.24 (0.10 to 1.59) | -0.01 (-0.06 to 0.27) | 21 of 21 | 14 of 21 |
+| 2 states | one day later | 0.41 (0.14 to 0.63) | 0.02 (-0.04 to 0.11) | 21 of 21 | 8 of 21 |
+| 3 states, out of the most volatile | one day later | 0.20 (0.02 to 0.27) | 0.00 (-0.05 to 0.06) | 21 of 21 | 12 of 21 |
+| 3 states, in only the least volatile | one day later | 0.98 (-0.07 to 1.30) | 0.01 (-0.16 to 0.26) | 20 of 21 | 8 of 21 |
+
+The one negative smoother gap is the telecom industry under the last rule with the delay, -0.07.
+
+The series are highly correlated, so the 21 values are not independent draws and the ranges are not intervals. No interval was computed for any cross-section number.
+
+### Convergence and other starting points
+
+`fit_em` returns a `converged` flag. The first version of this repository discarded it. It is now carried through `three_way_probabilities`, written to `results/em_convergence.csv` and to the `em_fits_converged` column of `results/cross_section.csv`, and `experiments.require_converged` stops the run if any fit reached the iteration limit of 20,000. No fit did. The slowest of the 1,083 fits behind the market result took 58 iterations. The cross-section made 45,486 fits (21 series, two models, 1,083 fits each); the slowest, a three-state fit on the second size decile, took 2,026 iterations. The refitted bootstrap made 45,500 more.
+
+`experiments.em_multistart`, `results/em_multistart.csv`: for each of the 21 series and for two and three states, the full-sample model is refitted from 20 random starts and compared with the deterministic start. Two fits count as the same maximum when their log likelihoods are within 0.01. A fit is left out as degenerate if a state's standard deviation is below 1% of the sample's or a state carries fewer than ten days. In all 42 cases the deterministic start reached the best likelihood found. All 840 random starts converged, none was degenerate, and 839 of them reached that same likelihood. The one that stopped lower was a three-state fit on the telecom industry. The past-only refits were not restarted from random points.
 
 ## Variants run
 
-Everything that was run on the market data, in order:
+Everything that was run on the market data, in order.
 
-1. The specification above, once, during development. Its numbers are the ones reported.
+Before the first write-up:
+
+1. The two-state specification above on the market index, once, during development.
 2. `reproduce.py` in full, to write `results/`. Same specification, same numbers.
-3. `reproduce.py --fast`: sample from 1990, five-year burn-in, yearly refits, 200 resamples, three k-means starts. It gave Sharpe ratios of 1.51 (smoothed), 0.52 (filtered, full-sample parameters), 0.54 (filtered, past-only parameters) and 0.50 (buy and hold). These numbers are not in `results/`.
+3. `reproduce.py --fast`: sample from 1990, five-year burn-in, yearly refits, 200 resamples, three k-means starts. These numbers are not in `results/`.
 
-No threshold, block length, refit schedule, cost level, window length or number of states was changed after seeing a result. The choices of 0.5, 63 days, monthly refits, 10 bp, `(35, 28)` and two states were made before the first run. One code change was made between writing the EM routine and the first run on the strategy: the EM stopping tolerance went from `1e-8` to `1e-12` per observation after I saw that the looser setting stopped 0.0002 log-likelihood units short of the limit on the full sample.
+The threshold of 0.5, the 63-day block, monthly refits, 10 bp, `(35, 28)` and two states are the values in the first commit of the code. That commit and the first results were made on the same morning, so the git history does not prove the values were fixed before any run. They have not changed since. One code change was made between writing the EM routine and the first run on the strategy: the EM stopping tolerance went from `1e-8` to `1e-12` per observation after I saw that the looser setting stopped 0.0002 log-likelihood units short of the limit on the full sample.
+
+After the first write-up, in response to a review. All of these are post hoc: they were chosen knowing the headline result.
+
+4. The one-day execution delay, for all six label versions.
+5. The 21 series with two and three states. Both three-state rules were written down before either was run, and both are reported. The whole cross-section was run once before the final run, with the same code and the same numbers.
+6. Random EM starts, 20 per series and number of states, run once before the final run. After that run I changed one thing: when a random start ties the deterministic one within 0.01, the "best start" column now keeps the deterministic fit.
+7. The refitted bootstrap: 500 resamples, mean block 63 days, yearly refits. These three settings were chosen for running time before the first run and not changed. It was run once before the final run.
+8. The weak HMM fits on synthetic paths. An exploratory run on 10 paths with a different seed tried the five fits in the table above and one more, the inflated-variance start with a limit of 100 iterations, which was left out because the loose tolerance stopped it after 13 iterations on average, so it was nearly the same fit as the 10-iteration one. That run also scored each fit with the low-mean state taken as regime-on. I dropped that mapping because the two drifts differ by too little for it to identify a state.
+9. The EM iteration limit went from 5,000 to 20,000 when the convergence check was added, as headroom for the three-state fits. No fit has reached either limit.
+
+Nothing in 4 to 9 changed a number in the original tables, apart from the drawdown column, which is now on total returns.
 
 For Hamilton's model one starting point was used for the optimiser and it converged to the published estimates on the first attempt.
 
